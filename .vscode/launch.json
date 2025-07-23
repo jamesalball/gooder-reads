@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-GooderReadsApplication<gooder-reads>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.gooderreads.gooder_reads.GooderReadsApplication",
+            "projectName": "gooder-reads",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
