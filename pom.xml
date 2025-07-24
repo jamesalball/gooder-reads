@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.5.3</version>
+		<version>3.5.4</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.gooderreads</groupId>
@@ -28,6 +28,10 @@
 	</scm>
 	<properties>
 		<java.version>21</java.version>
+		<spring.version>6.2</spring.version>
+		<jstl.version></jstl.version>
+		<servlets.version>6.0.0</servlets.version>
+		<jsp.version></jsp.version>
 	</properties>
 	<dependencies>
 
@@ -56,6 +60,26 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+    		<groupId>jakarta.servlet</groupId>
+    		<artifactId>jakarta.servlet-api</artifactId>
+		</dependency>
+		<dependency>
+            <groupId>jakarta.servlet.jsp.jstl</groupId>
+            <artifactId>jakarta.servlet.jsp.jstl-api</artifactId>
+        </dependency>
+		<dependency>
+    		<groupId>jakarta.servlet.jsp</groupId>
+    		<artifactId>jakarta.servlet.jsp-api</artifactId>
+    		<version>3.1.1</version>
+    		<scope>provided</scope>
+		</dependency>
+		<dependency>
+    		<groupId>org.apache.tomcat.embed</groupId>
+    		<artifactId>tomcat-embed-jasper</artifactId>
+    		<scope>provided</scope>
 		</dependency>
 	</dependencies>
 
