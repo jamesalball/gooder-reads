@@ -11,7 +11,7 @@ public class IndexController {
     @RequestMapping("/")
     public ModelAndView home() {
         ModelAndView mav = new ModelAndView("index");
-        mav.addObject("message", "Hello from Spring MVC!");
+        mav.addObject("message", "Hi my love!");
         return mav;
     }
 }
