@@ -3,11 +3,22 @@ package com.gooderreads.gooder_reads.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 @Table(name = "Users")
 public class User {
 
@@ -19,17 +30,14 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    @Column(name = "pass")
-    private String pass;
-
     @Column(name = "display_name")
     private String displayName;
 
-    protected User() {}
+    @OneToMany(mappedBy = "user")
+    private List<Review> reviews = new ArrayList<>();
 
-    public User(String email, String pass, String displayName) {
+    public User(String email, String displayName) {
         this.email = email;
-        this.pass = pass;
         this.displayName = displayName;
     }
 
@@ -37,21 +45,4 @@ public class User {
     public String toString() {
         return "Name: " + displayName + " Email: " + email;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPass() {
-        return pass;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-    
 }

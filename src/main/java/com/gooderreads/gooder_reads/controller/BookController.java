@@ -1,37 +1,36 @@
 package com.gooderreads.gooder_reads.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.List;
 
-import com.gooderreads.gooder_reads.repository.BookRepository;
-import com.gooderreads.gooder_reads.entity.Book;
-
+import com.gooderreads.gooder_reads.dto.BookDTO;
+import com.gooderreads.gooder_reads.service.BookService;
 
 @RestController
+@RequestMapping("/api/book")
 public class BookController {
 
     @Autowired
-    private BookRepository bookRepository;
+    private BookService bookService;
 
-    @GetMapping("/book")
-    public ModelAndView getBookPage(@RequestParam Long id) {
-        ModelAndView mav = new ModelAndView();
-        Book book = bookRepository.findById(id).get();
-
-        mav.addObject("title", book.getTitle());
-        mav.addObject("author", book.getAuthor());
-
-        return mav;
+    @GetMapping
+    public ResponseEntity<List<BookDTO>> getAllBooks() {
+        List<BookDTO> books = bookService.getAllBooks();
+        return new ResponseEntity<>(books, HttpStatus.OK);
     }
+    
 
-    @GetMapping("/api/book")
-    public Book getBookPageJson(@RequestParam Long id) {
-        Book book = bookRepository.findById(id).get();
-        return book;
+    @GetMapping("/{id}")
+    public ResponseEntity<BookDTO> getBookById(@PathVariable Long id) {
+        BookDTO book = bookService.getBookById(id);
+        return new ResponseEntity<>(book, HttpStatus.OK);
     }
     
 }

@@ -1,13 +1,23 @@
 package com.gooderreads.gooder_reads.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
+@Getter @Setter
+@NoArgsConstructor @AllArgsConstructor
 @Table(name = "Books")
 public class Book {
 
@@ -19,31 +29,20 @@ public class Book {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "author")
-    private Long author;
+    @Column(name = "author_id")
+    private Long author_id;
 
-    protected Book() {}
+    @OneToMany(mappedBy = "book")
+    private List<Review> reviews = new ArrayList<>();
 
-    public Book(String title, Long author) {
+    public Book(String title, Long author_id) {
         this.title = title;
-        this.author = author;
+        this.author_id = author_id;
     }
 
     @Override
     public String toString() {
-        return title + " by " + author;
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public Long getAuthor() {
-        return author;
+        return title + " by " + author_id;
     }
     
 }

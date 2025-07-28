@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS Books (
     id BIGINT PRIMARY KEY,
     title VARCHAR(255),
-    author BIGINT
+    author_id BIGINT
 );
 
 CREATE TABLE IF NOT EXISTS Users (
@@ -10,3 +10,19 @@ CREATE TABLE IF NOT EXISTS Users (
     pass VARCHAR(255),
     display_name VARCHAR(255)
 );
+
+CREATE TABLE IF NOT EXISTS Reviews (
+    id BIGINT PRIMARY KEY,
+    book_id BIGINT,
+    user_id BIGINT,
+    rating DECIMAL (2, 1),
+    review_text VARCHAR(255)
+);
+
+/*ALTER TABLE Reviews
+ADD CONSTRAINT FK_REVIEW_ON_BOOK
+FOREIGN KEY (book_id) REFERENCES Books (id);
+
+ALTER TABLE Reviews
+ADD CONSTRAINT FK_REVIEW_ON_USER
+FOREIGN KEY (user_id) REFERENCES Users (id);*/
