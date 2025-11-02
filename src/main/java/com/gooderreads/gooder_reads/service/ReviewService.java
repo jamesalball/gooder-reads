@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.gooderreads.gooder_reads.dto.ReviewDTO;
 import com.gooderreads.gooder_reads.entity.Review;
+import com.gooderreads.gooder_reads.exception.ResourceNotFoundException;
 import com.gooderreads.gooder_reads.mapper.ReviewMapper;
 import com.gooderreads.gooder_reads.repository.ReviewRepository;
 
@@ -31,8 +32,44 @@ public class ReviewService {
 
     @Transactional
     public ReviewDTO getReviewById(Long id) {
-        Review review = reviewRepository.findById(id).orElseThrow(() -> new RuntimeException("Book not found."));
+        Review review = reviewRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Review not found"));
         return reviewMapper.convertToDTO(review);
+    }
+
+    @Transactional
+    public ReviewDTO createReview(ReviewDTO newReview) {
+
+        Review savedReview = reviewMapper.convertToEntity(newReview);
+        savedReview = reviewRepository.save(savedReview);
+
+        ReviewDTO savedReviewDTO = reviewMapper.convertToDTO(savedReview);
+
+        return savedReviewDTO;
+
+    }
+
+    @Transactional
+    public ReviewDTO updateReview(Long id, ReviewDTO updatedReview) {
+
+        Review review = reviewRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Review not found"));
+
+        review.setRating(updatedReview.getRating());
+        review.setReviewText(updatedReview.getReviewText());
+
+        Review updatedSavedReview = reviewRepository.save(review);
+        ReviewDTO updatedReviewDTO = reviewMapper.convertToDTO(updatedSavedReview);
+
+        return updatedReviewDTO;
+
+    }
+
+    @Transactional
+    public void deleteReview(Long id) {
+
+        Review review = reviewRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Review not found"));
+
+        reviewRepository.delete(review);
+        
     }
 
 }

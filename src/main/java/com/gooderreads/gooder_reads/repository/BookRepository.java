@@ -11,5 +11,4 @@ import com.gooderreads.gooder_reads.entity.Book;
 public interface BookRepository extends JpaRepository <Book, Long>{
 
     Optional<Book> findById(Long id);
-    
 }

@@ -3,6 +3,10 @@ package com.gooderreads.gooder_reads.entity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,6 +22,7 @@ import lombok.Setter;
 @Entity
 @Getter @Setter
 @NoArgsConstructor @AllArgsConstructor
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "Books")
 public class Book {
 
@@ -30,19 +35,22 @@ public class Book {
     private String title;
 
     @Column(name = "author_id")
-    private Long author_id;
+    private Long authorId;
 
-    @OneToMany(mappedBy = "book")
+    @Column(name = "synopsis")
+    private String synopsis;
+
+    @OneToMany(mappedBy = "book", cascade = {CascadeType.MERGE})
     private List<Review> reviews = new ArrayList<>();
 
-    public Book(String title, Long author_id) {
+    public Book(String title, Long authorId) {
         this.title = title;
-        this.author_id = author_id;
+        this.authorId = authorId;
     }
 
     @Override
     public String toString() {
-        return title + " by " + author_id;
+        return title + " by " + authorId;
     }
     
 }

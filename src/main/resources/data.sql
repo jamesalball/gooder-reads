@@ -1,8 +1,8 @@
-INSERT INTO Books (id, title, author_id) VALUES (1, 'The Stand', 1);
-INSERT INTO Books (id, title, author_id) VALUES (2, 'IT', 1);
-INSERT INTO Books (id, title, author_id) VALUES (3, 'Salems Lot', 1);
-INSERT INTO Books (id, title, author_id) VALUES (4, 'Carrie', 1);
-INSERT INTO Books (id, title, author_id) VALUES (5, 'Skeleton Crew', 1);
+INSERT INTO Books (title, author_id, synopsis) VALUES ('The Stand', 1, 'It''s a post-apocalypse!');
+INSERT INTO Books (title, author_id, synopsis) VALUES ('IT', 1, 'Scary clowns!');
+INSERT INTO Books (title, author_id, synopsis) VALUES ('Salem''s Lot', 1, 'Resurrected pets!');
+INSERT INTO Books (title, author_id, synopsis) VALUES ('Carrie', 1, 'Pig blood at prom!');
+INSERT INTO Books (title, author_id, synopsis) VALUES ('Skeleton Crew', 1, 'Stories to keep you up at night!');
 
 INSERT INTO Users (id, email, display_name) VALUES (1, 'james.al.ball@gmail.com', 'James Ball');
 INSERT INTO Users (id, email, display_name) VALUES (2, 'sadira.austin@gmail.com', 'Sadira Austin');

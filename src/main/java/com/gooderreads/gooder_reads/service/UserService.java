@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import com.gooderreads.gooder_reads.repository.UserRepository;
 import com.gooderreads.gooder_reads.dto.UserDTO;
 import com.gooderreads.gooder_reads.entity.User;
+import com.gooderreads.gooder_reads.exception.ResourceNotFoundException;
 import com.gooderreads.gooder_reads.mapper.UserMapper;
 
 import jakarta.transaction.Transactional;
@@ -33,8 +34,44 @@ public class UserService {
     @Transactional
     public UserDTO getUserById(Long id) {
         User user = userRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Book not found."));
+            .orElseThrow(() -> new ResourceNotFoundException("User not found"));
         return userMapper.convertToDTO(user);
+    }
+
+    @Transactional
+    public UserDTO createUser(UserDTO newUser) {
+
+        User savedUser = userMapper.convertToEntity(newUser);
+        savedUser = userRepository.save(savedUser);
+
+        UserDTO savedUserDTO = userMapper.convertToDTO(savedUser);
+
+        return savedUserDTO;
+
+    }
+
+    @Transactional
+    public UserDTO updateUser(Long id, UserDTO updatedUser) {
+
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        user.setEmail(updatedUser.getEmail());
+        user.setDisplayName(updatedUser.getDisplayName());
+
+        User updatedSavedUser = userRepository.save(user);
+        UserDTO updatedUserDTO = userMapper.convertToDTO(updatedSavedUser);
+
+        return updatedUserDTO;
+
+    }
+
+    @Transactional
+    public void deleteUser(Long id) {
+
+        User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        userRepository.delete(user);
+
     }
     
 }
